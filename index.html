@@ -1,0 +1,90 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .light-container {
+            display: flex;
+        }
+
+        .light {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ff0000;
+            margin: 20px;
+            transition: background-color 0.5s ease-in-out;
+        }
+    </style>
+    <title>Christmas Lights</title>
+</head>
+<body>
+
+<div class="light-container">
+    <div id="light1" class="light"></div>
+    <div id="light2" class="light"></div>
+    <div id="light3" class="light"></div>
+    <div id="light4" class="light"></div>
+    <div id="light5" class="light"></div>
+</div>
+<button onclick="turnOn()">On</button>
+<button onclick="off()">Off</button>
+<button onclick="blink()">Blink</button>
+
+<script>
+    var lights = [
+        document.getElementById("light1"),
+        document.getElementById("light2"),
+        document.getElementById("light3"),
+        document.getElementById("light4"),
+        document.getElementById("light5")
+    ];
+
+    var blinkColors = ["#0000ff", "#ff0000", "#ffff00", "#00ff00", "#ffa500"]; // Blue, Red, Yellow, Green, Orange
+    var currentColorIndex = 0;
+    var isBlinking = false;
+    var blinkInterval;
+
+    function turnOn() {
+        for (var i = 0; i < lights.length; i++) {
+            lights[i].style.backgroundColor = blinkColors[i];
+        }
+        stopBlinking();
+    }
+
+    function off() {
+        for (var i = 0; i < lights.length; i++) {
+            lights[i].style.backgroundColor = "#000000"; // Black color represents the light being off
+        }
+        stopBlinking();
+    }
+
+    function blink() {
+        if (isBlinking) {
+            stopBlinking();
+        } else {
+            isBlinking = true;
+            blinkInterval = setInterval(function () {
+                toggleBlink();
+            }, 500); // Toggle every 500 milliseconds
+        }
+    }
+
+    function toggleBlink() {
+        for (var i = 0; i < lights.length; i++) {
+            if (lights[i].style.backgroundColor === "rgb(0, 0, 0)") {
+                lights[i].style.backgroundColor = blinkColors[i];
+            } else {
+                lights[i].style.backgroundColor = "#000000";
+            }
+        }
+    }
+
+    function stopBlinking() {
+        isBlinking = false;
+        clearInterval(blinkInterval);
+    }
+</script>
+
+</body>
+</html>
